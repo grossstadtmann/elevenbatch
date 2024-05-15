@@ -1,6 +1,6 @@
 # elevenbatch
 <a href='https://ko-fi.com/grossstadtmann' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-![GitHub last commit](https://img.shields.io/github/last-commit/sebbaer/elevenbatch?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/grossstadtmann/elevenbatch?style=for-the-badge)
 
 elevenbatch is a shell and powershell script collection for batch processing text-to-speech conversions using the ElevenLabs Text-to-Speech API. The script reads a CSV file, extracts specified columns, and converts each value into an MP3 file using the API.
 
