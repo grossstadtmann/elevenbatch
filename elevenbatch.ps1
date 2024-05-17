@@ -18,10 +18,12 @@ $column_indices = $args[1] -split ','
 $API_KEY = "YOUR_API_KEY"
 
 # Define the ElevenLabs API Voice
+# Example: Drew; 29vD33N1CtxCmqQRPOHJ | Clyde; 2EiwWnXFnvU5JabPnv8n | Paul; 5Q0t7uMcjvnagumLfvZi
 API_VOICE="YOUR_API_VOICE"
 $API_URL = "https://api.elevenlabs.io/v1/text-to-speech/"$API_VOICE
 
 # Define the ElevenLabs API Leanguage Model ID
+# Example: eleven_multilingual_v2, eleven_multilingual_v1, eleven_monolingual_v1, eleven_english_sts_v2, eleven_turbo_v2, eleven_multilingual_sts_v2
 API_MODEL_ID="YOUR_API_MODEL_ID"
 
 # Read the CSV file, skipping the first line
