@@ -76,7 +76,7 @@ API_MODEL_ID="YOUR_API_MODEL_ID"
 
 ## License
 
-TBD
+Apache License 2.0 
 
 ## Contributing
 
