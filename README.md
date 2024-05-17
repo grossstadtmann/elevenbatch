@@ -1,6 +1,7 @@
 # elevenbatch
-<a href='https://ko-fi.com/grossstadtmann' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-![GitHub last commit](https://img.shields.io/github/last-commit/grossstadtmann/elevenbatch?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/grossstadtmann/elevenbatch?style=flat)
+![Static Badge](https://img.shields.io/badge/elevenlabs-.io-blue?style=flat&link=https%3A%2F%2Felevenlabs.io%2F%3Ffrom%3Dpartnerkhan1060)
+![Static Badge](https://img.shields.io/badge/Buy_Me_a_Coffee_at-ko--fi.com-blue?style=flat&logo=kofi&link=https%3A%2F%2Fko-fi.com%2Fgrossstadtmann)
 
 elevenbatch is a shell and powershell script collection for batch processing text-to-speech conversions using the ElevenLabs Text-to-Speech API. The script reads a CSV file, extracts specified columns, and converts each value into an MP3 file using the API.
 
@@ -19,7 +20,7 @@ If you like you can support my work by buying me a Coffee via ko-fi.com
 
 - Bash shell
 - `curl` command-line tool
-- ElevenLabs API key
+- ElevenLabs Subscription to create an API key -> support me via that [Link](elevenlabs.io/?from=partnerkhan1060)
 - ElevenLabs Voice ID
 - ElevenLabs Modle ID
 
