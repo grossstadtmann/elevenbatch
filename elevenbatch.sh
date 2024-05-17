@@ -20,6 +20,7 @@ IFS=',' read -r -a column_indices <<< "$2"
 API_KEY="YOUR_API_KEY"
 
 # Define the ElevenLabs API Voice
+# Example: Drew; 29vD33N1CtxCmqQRPOHJ | Clyde; 2EiwWnXFnvU5JabPnv8n | Paul; 5Q0t7uMcjvnagumLfvZi
 API_VOICE="YOUR_API_VOICE"
 
 # Define the ElevenLabs API Leanguage Model ID
