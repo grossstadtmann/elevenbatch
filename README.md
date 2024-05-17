@@ -1,5 +1,4 @@
 # elevenbatch
-![GitHub last commit](https://img.shields.io/github/last-commit/grossstadtmann/elevenbatch?style=flat)
 ![Static Badge](https://img.shields.io/badge/elevenlabs-.io-blue?style=flat&link=https%3A%2F%2Felevenlabs.io%2F%3Ffrom%3Dpartnerkhan1060)
 ![Static Badge](https://img.shields.io/badge/Buy_Me_a_Coffee_at-ko--fi.com-blue?style=flat&logo=kofi&link=https%3A%2F%2Fko-fi.com%2Fgrossstadtmann)
 
