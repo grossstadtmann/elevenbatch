@@ -37,7 +37,11 @@ If you like you can support my work by buying me a Coffee via ko-fi.com
     chmod +x elevenbatch.sh
     ```
 
-## Usage
+3. Replace API_KEY="YOUR_API_KEY" with your actual ElevenLabs API key in the script.
+4. Replace API_VOICE="YOUR_API_VOICE" with the Voice you like. Use the Helper Scripts to finde the right ID
+5. Replace API_MODEL_ID="YOUR_API_MODEL_ID" with the API Model ID you like. Use the Helper Scripts to finde the right ID
+
+## Usage MacOS / Linux
 
 ```sh
 ./elevenbatch.sh <csv_file> <columns>
@@ -45,6 +49,19 @@ If you like you can support my work by buying me a Coffee via ko-fi.com
 
 - `<csv_file>`: Path to the CSV file to be processed.  
 - `<columns>`: Comma-separated list of column indices to be processed (0-based).
+
+## Usage Windows
+
+1. Save the script as elevenbatch.ps1.
+2. Open PowerShell and navigate to the directory where the script is saved.
+3. Replace API_KEY="YOUR_API_KEY" with your actual ElevenLabs API key in the script.
+4. Replace API_VOICE="YOUR_API_VOICE" with the Voice you like
+5. Replace API_MODEL_ID="YOUR_API_MODEL_ID" with the API Model ID you like 
+6. Run the script
+
+```sh
+./elevenbatch.ps1 <csv_file> <columns>
+```
 
 ## Example
 
@@ -60,7 +77,7 @@ If you like you can support my work by buying me a Coffee via ko-fi.com
 2. Run the script to convert specific columns to speech:
 
 ```sh
-./print_csv.sh data.csv 0,1,5,6,9,10
+./elevenbatch.sh data.csv 0,1,5,6,9,10
 ```
 3. The script will generate MP3 files for the specified columns, e.g., Alice.mp3, 30.mp3, NY.mp3, New_York.mp3, alice@example.com.mp3, and Likes_hiking.mp3.
 
