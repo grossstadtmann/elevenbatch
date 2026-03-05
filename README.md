@@ -36,9 +36,13 @@ If you like you can support my work by buying me a Coffee via ko-fi.com
     chmod +x elevenbatch.sh
     ```
 
-3. Replace API_KEY="YOUR_API_KEY" with your actual ElevenLabs API key in the script.
-4. Replace API_VOICE="YOUR_API_VOICE" with the Voice you like. Use the Helper Scripts to finde the right ID
-5. Replace API_MODEL_ID="YOUR_API_MODEL_ID" with the API Model ID you like. Use the Helper Scripts to finde the right ID
+3. Set the required environment variables before running the script:
+
+   ```sh
+   export ELEVENLABS_API_KEY="your_api_key"
+   export ELEVENLABS_API_VOICE="your_voice_id"
+   export ELEVENLABS_API_MODEL_ID="your_model_id"
+   ```
 
 ## Usage MacOS / Linux
 
@@ -53,12 +57,17 @@ If you like you can support my work by buying me a Coffee via ko-fi.com
 
 1. Save the script as elevenbatch.ps1.
 2. Open PowerShell and navigate to the directory where the script is saved.
-3. Replace API_KEY="YOUR_API_KEY" with your actual ElevenLabs API key in the script.
-4. Replace API_VOICE="YOUR_API_VOICE" with the Voice you like
-5. Replace API_MODEL_ID="YOUR_API_MODEL_ID" with the API Model ID you like 
-6. Run the script
+3. Set required environment variables in PowerShell:
 
-```sh
+```powershell
+$env:ELEVENLABS_API_KEY="your_api_key"
+$env:ELEVENLABS_API_VOICE="your_voice_id"
+$env:ELEVENLABS_API_MODEL_ID="your_model_id"
+```
+
+4. Run the script:
+
+```powershell
 ./elevenbatch.ps1 <csv_file> <columns>
 ```
 
@@ -82,12 +91,22 @@ If you like you can support my work by buying me a Coffee via ko-fi.com
 
 ## Configuration
 
-Replace YOUR_API_* Values in the script with your actual ElevenLabs API key:
+Set these required environment variables before execution.
+
+Linux / macOS:
 
 ```sh
-API_KEY="YOUR_API_KEY"
-API_VOICE="YOUR_API_VOICE"
-API_MODEL_ID="YOUR_API_MODEL_ID"
+export ELEVENLABS_API_KEY="your_api_key"
+export ELEVENLABS_API_VOICE="your_voice_id"
+export ELEVENLABS_API_MODEL_ID="your_model_id"
+```
+
+Windows PowerShell:
+
+```powershell
+$env:ELEVENLABS_API_KEY="your_api_key"
+$env:ELEVENLABS_API_VOICE="your_voice_id"
+$env:ELEVENLABS_API_MODEL_ID="your_model_id"
 ```
 
 ## License
