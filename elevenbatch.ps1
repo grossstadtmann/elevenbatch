@@ -1,59 +1,96 @@
-# Check if the correct number of arguments is provided
-if ($args.Count -ne 2) {
-    Write-Host "Usage: .\print_csv.ps1 <csv_file> <columns>"
-    Write-Host "Example: .\print_csv.ps1 data.csv 0,1,5,6,9,10"
-    exit
+param(
+    [Parameter(Mandatory = $true, Position = 0)]
+    [string]$CsvFile,
+
+    [Parameter(Mandatory = $true, Position = 1)]
+    [string]$Columns
+)
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
+if (-not (Test-Path -LiteralPath $CsvFile -PathType Leaf)) {
+    Write-Error "File not found: $CsvFile"
+    exit 1
 }
 
-# Check if the file exists
-if (-not (Test-Path $args[0])) {
-    Write-Host "File not found!"
-    exit
+$API_KEY = if ($env:ELEVENLABS_API_KEY) { $env:ELEVENLABS_API_KEY } else { "YOUR_API_KEY" }
+$API_VOICE = if ($env:ELEVENLABS_API_VOICE) { $env:ELEVENLABS_API_VOICE } else { "YOUR_API_VOICE" }
+$API_MODEL_ID = if ($env:ELEVENLABS_API_MODEL_ID) { $env:ELEVENLABS_API_MODEL_ID } else { "YOUR_API_MODEL_ID" }
+
+if ($API_KEY -eq "YOUR_API_KEY" -or $API_VOICE -eq "YOUR_API_VOICE" -or $API_MODEL_ID -eq "YOUR_API_MODEL_ID") {
+    Write-Error "Please set ELEVENLABS_API_KEY, ELEVENLABS_API_VOICE and ELEVENLABS_API_MODEL_ID."
+    exit 1
 }
 
-# Get the column indices and convert them into an array
-$column_indices = $args[1] -split ','
+$columnIndices = $Columns -split ','
+foreach ($index in $columnIndices) {
+    if ($index -notmatch '^[0-9]+$') {
+        Write-Error "Invalid column index: $index"
+        exit 1
+    }
+}
 
-# Define the ElevenLabs API key
-$API_KEY = "YOUR_API_KEY"
+function Get-SafeFileName {
+    param([string]$InputValue)
 
-# Define the ElevenLabs API Voice
-# Example: Drew; 29vD33N1CtxCmqQRPOHJ | Clyde; 2EiwWnXFnvU5JabPnv8n | Paul; 5Q0t7uMcjvnagumLfvZi
-API_VOICE="YOUR_API_VOICE"
-$API_URL = "https://api.elevenlabs.io/v1/text-to-speech/"$API_VOICE
+    $safe = ($InputValue -replace '\s+', '_') -replace '[^\w-]', ''
+    if ([string]::IsNullOrWhiteSpace($safe)) {
+        return "output"
+    }
 
-# Define the ElevenLabs API Leanguage Model ID
-# Example: eleven_multilingual_v2, eleven_multilingual_v1, eleven_monolingual_v1, eleven_english_sts_v2, eleven_turbo_v2, eleven_multilingual_sts_v2
-API_MODEL_ID="YOUR_API_MODEL_ID"
+    return $safe
+}
 
-# Read the CSV file, skipping the first line
-$csv_content = Get-Content $args[0] | Select-Object -Skip 1
+function Get-UniqueFileName {
+    param([string]$BaseName)
 
-foreach ($line in $csv_content) {
+    $candidate = "$BaseName.mp3"
+    $counter = 1
+
+    while (Test-Path -LiteralPath $candidate) {
+        $candidate = "${BaseName}_$counter.mp3"
+        $counter++
+    }
+
+    return $candidate
+}
+
+$apiUrl = "https://api.elevenlabs.io/v1/text-to-speech/$API_VOICE"
+$csvContent = Get-Content -LiteralPath $CsvFile | Select-Object -Skip 1
+
+foreach ($line in $csvContent) {
     $lineArray = $line -split ';'
-    
-    foreach ($index in $column_indices) {
-        if ($index -lt $lineArray.Length) {
-            $value = $lineArray[$index].Trim('"')  # Remove double quotes
-            
-            # Ensure the filename is safe by replacing spaces with underscores and removing other problematic characters
-            $safe_value = $value -replace ' ', '_' -replace '[^\w]', ''
-            
-            # Prepare the data for the API request
+
+    foreach ($index in $columnIndices) {
+        $columnIndex = [int]$index
+        if ($columnIndex -lt $lineArray.Length) {
+            $value = $lineArray[$columnIndex].Trim('"')
+            if ([string]::IsNullOrWhiteSpace($value)) {
+                continue
+            }
+
+            $safeValue = Get-SafeFileName -InputValue $value
+            $outputFile = Get-UniqueFileName -BaseName $safeValue
+
             $data = @{
-                "voice_settings" = @{
-                    "stability" = 0.5
-                    "similarity_boost" = 0.75
-                    "style" = 0
-                    "use_speaker_boost" = $true
+                voice_settings = @{
+                    stability = 0.5
+                    similarity_boost = 0.75
+                    style = 0
+                    use_speaker_boost = $true
                 }
-                "model_id" = $API_MODEL_ID
-                "text" = $value
-            } | ConvertTo-Json
-            
-            # Send the value to the ElevenLabs API
-            Invoke-RestMethod -Method Post -Uri $API_URL -Headers @{ "Content-Type" = "application/json"; "xi-api-key" = $API_KEY } -Body $data -OutFile "${safe_value}.mp3"
-        } else {
+                model_id = $API_MODEL_ID
+                text = $value
+            } | ConvertTo-Json -Depth 4 -Compress
+
+            Invoke-RestMethod -Method Post `
+                -Uri $apiUrl `
+                -Headers @{ "Content-Type" = "application/json"; "xi-api-key" = $API_KEY } `
+                -Body $data `
+                -OutFile $outputFile
+        }
+        else {
             Write-Host "N/A"
         }
     }
